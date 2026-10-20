@@ -20,14 +20,11 @@ import LabelsPage from "./pages/LabelsPage";
 import FiltersPage from "./pages/FiltersPage";
 
 function App() {
-  const [showTaskModal, setShowTaskModal] =
-    useState(false);
+  const [showTaskModal, setShowTaskModal] = useState(false);
 
-  const [editingTask, setEditingTask] =
-    useState(null);
+  const [editingTask, setEditingTask] = useState(null);
 
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
   const openAddTask = () => {
     setEditingTask(null);
@@ -45,7 +42,9 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      basename={import.meta.env.BASE_URL.replace(/\/$/, "")}
+    >
       <div className="app">
 
         <Sidebar
@@ -62,7 +61,7 @@ function App() {
 
           <Routes>
 
-            {/* DEFAULT PAGE */}
+            {/* Dashboard */}
             <Route
               path="/"
               element={
@@ -72,6 +71,7 @@ function App() {
               }
             />
 
+            {/* Inbox */}
             <Route
               path="/inbox"
               element={
@@ -82,6 +82,7 @@ function App() {
               }
             />
 
+            {/* Today */}
             <Route
               path="/today"
               element={
@@ -92,6 +93,7 @@ function App() {
               }
             />
 
+            {/* Upcoming */}
             <Route
               path="/upcoming"
               element={
@@ -102,11 +104,13 @@ function App() {
               }
             />
 
+            {/* Projects */}
             <Route
               path="/projects"
               element={<ProjectsPage />}
             />
 
+            {/* Individual Project */}
             <Route
               path="/projects/:id"
               element={
@@ -116,17 +120,19 @@ function App() {
               }
             />
 
+            {/* Labels */}
             <Route
               path="/labels"
               element={<LabelsPage />}
             />
 
+            {/* Filters */}
             <Route
               path="/filters"
               element={<FiltersPage />}
             />
 
-            {/* UNKNOWN ROUTE → DASHBOARD */}
+            {/* Unknown URL → Dashboard */}
             <Route
               path="*"
               element={
