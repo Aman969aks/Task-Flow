@@ -4,6 +4,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 import Sidebar from "./components/layout/Sidebar";
@@ -46,11 +47,13 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
+
         <Sidebar
           onAddTask={openAddTask}
         />
 
         <div className="main">
+
           <Topbar
             search={search}
             setSearch={setSearch}
@@ -58,6 +61,8 @@ function App() {
           />
 
           <Routes>
+
+            {/* DEFAULT PAGE */}
             <Route
               path="/"
               element={
@@ -104,7 +109,11 @@ function App() {
 
             <Route
               path="/projects/:id"
-              element={<Inbox search={search} />}
+              element={
+                <Inbox
+                  search={search}
+                />
+              }
             />
 
             <Route
@@ -116,7 +125,20 @@ function App() {
               path="/filters"
               element={<FiltersPage />}
             />
+
+            {/* UNKNOWN ROUTE → DASHBOARD */}
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to="/"
+                  replace
+                />
+              }
+            />
+
           </Routes>
+
         </div>
 
         <TaskModal
@@ -124,6 +146,7 @@ function App() {
           onClose={closeModal}
           editingTask={editingTask}
         />
+
       </div>
     </BrowserRouter>
   );
